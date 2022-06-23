@@ -27,6 +27,9 @@ const initialState: PizzaState = {
   pizzasNeeded: 2
 };
 
+// We do need to figure out what we're going to do with the
+// actions though, right? Luckily, they mostly conform to
+// the same shape.
 type PizzaAction = {
   type:
     | 'UPDATE_NUMBER_OF_PEOPLE'
@@ -35,7 +38,11 @@ type PizzaAction = {
   payload: number;
 };
 
+// Well, we know the shape of the pizza state, right?
+// Update the state and action for pizza
 const reducer = (state: PizzaState, action: PizzaAction) => {
+  // (You've got that union type making sure that we only allow for a certain set of actions.)
+  // (This saves us from accidentally misspelling an action type and wondering why nothing works.)
   if (action.type === 'UPDATE_NUMBER_OF_PEOPLE') {
     return addPizzasNeededToPizzaData({
       ...state,
@@ -69,12 +76,16 @@ const Calculation = ({ count }: { count: number }) => {
   );
 };
 
+// Now, we can update the Calculator component.
+// One of my least favorite things about the web is that
+// inputs—even if they have type of "number"—will return
+// strings and TypeScript is well aware of that.
 const Calculator = ({
   dispatch,
   state
 }: {
   state: PizzaState;
-  dispatch: Dispatch<PizzaAction>
+  dispatch: Dispatch<PizzaAction>;
 }) => {
   return (
     <form onSubmit={() => {}}>
@@ -86,6 +97,7 @@ const Calculator = ({
         onChange={(event) =>
           dispatch({
             type: 'UPDATE_NUMBER_OF_PEOPLE',
+            // We need to convert the output to numbers.(+)
             payload: +event.target.value
           })
         }
@@ -98,6 +110,7 @@ const Calculator = ({
         onChange={(event) =>
           dispatch({
             type: 'UPDATE_SLICES_PER_PERSON',
+            // We need to convert the output to numbers.(+)
             payload: +event.target.value
           })
         }
@@ -110,6 +123,7 @@ const Calculator = ({
         onChange={(event) =>
           dispatch({
             type: 'UPDATE_SLICES_PER_PIE',
+            // We need to convert the output to numbers.(+)
             payload: +event.target.value
           })
         }
