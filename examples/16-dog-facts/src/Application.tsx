@@ -1,3 +1,9 @@
+// GOAL:
+// When the user hits submit on the form, we want to fetch 
+// however many facts about dogs as they requested.
+
+// Wire up forms and events with some "asynchronous" data.
+
 import * as React from 'react';
 import { fetchDogFacts, DogFactType } from './dog-facts';
 
