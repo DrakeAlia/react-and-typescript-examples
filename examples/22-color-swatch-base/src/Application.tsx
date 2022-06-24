@@ -7,6 +7,11 @@ import { ColorSliders } from './ColorSliders';
 import { toRGB } from './utilities';
 import { reducer } from './reducer';
 
+// Before we dive into the Context API, let's wire this up
+// so that we can update the state.
+// If you look at Application.tsx, it almost looks like we
+// have no TypeScript at all.
+
 const Application = () => {
   const [rgb, dispatch] = React.useReducer(reducer, {
     red: 0,
@@ -18,7 +23,7 @@ const Application = () => {
     <main style={{ borderColor: toRGB(rgb) }}>
       <ColorSwatch {...rgb} />
       <ColorInputs {...rgb} />
-      <ColorSliders {...rgb} />
+      <ColorSliders {...rgb} dispatch={dispatch} />
     </main>
   );
 };
