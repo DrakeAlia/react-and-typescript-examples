@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ChangeEvent } from 'react';
-
 import { RGBContext } from './context';
 
 export interface AdjustmentInputProps {

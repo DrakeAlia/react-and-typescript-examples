@@ -6,8 +6,14 @@ interface RGBContextType extends RGBColorType {
   dispatch: React.Dispatch<AdjustmentAction>;
 }
 
+const initialState: RGBColorType = {
+  red: 0,
+  green: 0,
+  blue: 0
+};
+
 export const RGBContext = React.createContext<RGBContextType>(
-  {} as RGBContextType
+  initialState as RGBContextType
 );
 
 export const RGBContextProvider = ({
@@ -22,7 +28,12 @@ export const RGBContextProvider = ({
   });
 
   return (
-    <RGBContext.Provider value={{ ...rgb, dispatch }}>
+    <RGBContext.Provider
+      value={{
+        ...rgb,
+        dispatch
+      }}
+    >
       {children}
     </RGBContext.Provider>
   );
