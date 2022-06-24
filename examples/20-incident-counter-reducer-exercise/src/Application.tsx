@@ -53,7 +53,7 @@ const Counter = () => {
   const increment = () => dispatch({ type: 'INCREMENT' });
   const decrement = () => dispatch({ type: 'DECREMENT' });
   const reset = () => dispatch({ type: 'SET', payload: 0 });
-  const set = (n: number) => dispatch({ type: 'SET', payload: n });
+  // const set = (n: number) => dispatch({ type: 'SET', payload: n });
 
   return (
     <main className="Counter">
