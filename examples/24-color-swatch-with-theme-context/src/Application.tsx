@@ -16,9 +16,8 @@ const Application = () => {
       }}
     >
       <ColorSwatch />
-      {/* <ColorInputs {...rgb} /> */}
-      <ColorAdjustment Adjustment={ColorSlider} />
       <ColorAdjustment Adjustment={ColorInput} />
+      <ColorAdjustment Adjustment={ColorSlider} />
     </main>
   );
 };
