@@ -14,6 +14,8 @@ type WithCharacterProps = {
   character: CharacterType;
 };
 
+// Component should be a React.Componeent type that is 
+// based on T
 function withCharacter<T extends WithCharacterProps>(
   Component: React.ComponentType<T>
 ) {
@@ -40,14 +42,15 @@ function withCharacter<T extends WithCharacterProps>(
     // take any of the props the component it wraps takes,
     // except the ones we plan on passing in.
     if (loading) return <Loading />;
+    // return whatever component we passed in with the character
     return character && <Component {...(props as T)} character={character} />;
   };
 }
 
 const Application = () => {
   // In the Application component, we can use our pointless HOC.
-  // Just simulating that is the combination of our character information and 
-  // component with character higher-order component as well 
+  // Just simulating that is the combination of our character information and
+  // component with character higher-order component as well
   const CharacterInformationWithCharacter = withCharacter(CharacterInformation);
 
   return (
