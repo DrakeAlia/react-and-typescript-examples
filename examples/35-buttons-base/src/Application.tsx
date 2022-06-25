@@ -1,8 +1,21 @@
 type ButtonProps = {
   children: string;
-  primary?: boolean;
-  secondary?: boolean;
-  destructive?: boolean;
+};
+
+type PrimaryButtonsProps = ButtonProps & {
+  primary: boolean;
+  secondary?: never;
+  destructive?: never;
+};
+type SecondaryButtonsProps = ButtonProps & {
+  secondary: boolean;
+  primary?: never;
+  destructive?: never;
+};
+type DestructiveButtonsProps = ButtonProps & {
+  destructive: boolean;
+  secondary?: never;
+  primary?: never;
 };
 
 const createClassNames = (classes: { [key: string]: boolean }): string => {
@@ -18,7 +31,7 @@ const Button = ({
   primary = false,
   secondary = false,
   destructive = false
-}: ButtonProps) => {
+}: PrimaryButtonsProps | SecondaryButtonsProps | DestructiveButtonsProps) => {
   const classNames = createClassNames({ primary, secondary, destructive });
 
   return <button className={classNames}>{children}</button>;
