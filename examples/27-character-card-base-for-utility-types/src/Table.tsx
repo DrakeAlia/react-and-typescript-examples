@@ -1,7 +1,8 @@
+// Refactoring the Character Cards with Utility Types:
 import * as React from 'react';
 import { CharacterType } from './characters';
 
-// We can do a quick refactor make our TableRow components 
+// We can do a quick refactor make our TableRow components
 // better.
 
 // We could handle this a few different ways:
@@ -9,8 +10,7 @@ import { CharacterType } from './characters';
 // 2.Capitalize the heading with CSS.
 // 3.Fix the typing.
 
-
-// It would be cool if I could enforce that the heading 
+// It would be cool if I could enforce that the heading
 // be property that is actually on a character.
 
 type TableProps = { children: React.ReactNode };
@@ -38,8 +38,7 @@ export const TableRow = ({ heading, value }: TableRowProps) => {
   );
 };
 
-
-// Yes. I could hardcode in the values, but I don't love 
+// Yes. I could hardcode in the values, but I don't love
 // that.
 
 // type TableRowProps = {
