@@ -1,24 +1,21 @@
-type ButtonProps = {
+// Polymorphic Components with TypeScript
+import * as React from 'react';
+
+// Augment the props with the fact that
+// it could take an element. We're also going to move
+// ButtonProps into ButtonOwnProps so that we
+// can combine it later.
+
+type ButtonOwnProps<E extends React.ElementType = React.ElementType> = {
   children: string;
+  primary?: boolean;
+  secondary?: boolean;
+  destructive?: boolean;
+  as?: E;
 };
 
-type PrimaryButtonProps = {
-  primary: boolean;
-  secondary?: never;
-  destructive?: never;
-};
-
-type SecondaryButtonProps = {
-  primary?: never;
-  secondary: boolean;
-  destructive?: never;
-};
-
-type DestructiveButtonProps = {
-  primary?: never;
-  secondary?: never;
-  destructive: boolean;
-};
+type ButtonProps<E extends React.ElementType> = ButtonOwnProps<E> &
+  Omit<React.ComponentProps<E>, keyof ButtonOwnProps>;
 
 const createClassNames = (classes: { [key: string]: boolean }): string => {
   let classNames = '';
@@ -28,17 +25,30 @@ const createClassNames = (classes: { [key: string]: boolean }): string => {
   return classNames.trim();
 };
 
-const Button = ({
+// What's happening here?
+
+// We have a generic, E.
+// We placed a constraint on E that it must be something 
+// that conforms to an HTML element.
+// Take our ButtonOwnProps that we just made.
+// Make a new type of whatever props that HTML element takes, 
+// but let us override it.
+
+const defaultElement = 'button';
+
+function Button<E extends React.ElementType = typeof defaultElement>({
   children,
   primary = false,
   secondary = false,
-  destructive = false
-}: ButtonProps &
-  (PrimaryButtonProps | SecondaryButtonProps | DestructiveButtonProps)) => {
+  destructive = false,
+  as
+}: ButtonProps<E>) {
   const classNames = createClassNames({ primary, secondary, destructive });
 
-  return <button className={classNames}>{children}</button>;
-};
+  const TagName = as || defaultElement;
+
+  return <TagName className={classNames}>{children}</TagName>;
+}
 
 const Application = () => {
   return (
