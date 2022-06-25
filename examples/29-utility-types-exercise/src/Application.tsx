@@ -29,7 +29,18 @@ const friends: UserModel[] = [
   { displayName: 'Tyrannosaurus', accountId: '789', isVerified: true }
 ];
 
-const CurrentUser = ({ accountId, displayName, isVerified }: UserModel) => {
+// We can start by making a type that omits accountId.
+// Omit is take the UserModel as the first generic and
+// going to remove any property called accountId
+type CurrentUserProps = Omit<UserModel, 'accountId'>;
+// OR, alternatively, we could do something like this:
+// type AlternateUserProps = Pick<UserModel, 'displayName' | 'isVerified'>;
+
+// Swap out UserModel with CurrentUserProps and that
+// will take off accountId, thus we can get rid of
+// accountId in CurrentUser
+// This allows us not have to duplicate our code
+const CurrentUser = ({ displayName, isVerified }: CurrentUserProps) => {
   return (
     <header className="current-user">
       <h2>
@@ -39,7 +50,15 @@ const CurrentUser = ({ accountId, displayName, isVerified }: UserModel) => {
   );
 };
 
-const Friend = ({ displayName, isVerified }: UserModel) => {
+// We can create a type for props out of the prop type of
+// another component—even if we don't have direct access
+// to the type itself.
+// typeof CurrentUser is getting the same property as
+// displayedName and isVerified off of the CurrentUser as well
+const Friend = ({
+  displayName,
+  isVerified
+}: React.ComponentProps<typeof CurrentUser>) => {
   return (
     <li className="friend">
       {displayName} {isVerified && '✓'}
