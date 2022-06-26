@@ -1,3 +1,5 @@
+// Solving for Context API Edge Cases
+
 // Now that we know a little bit more about generics, we
 // can make an abstraction for solving for what to do if
 // our context value isn't set yet.
@@ -24,3 +26,8 @@ export function createContext<T extends {} | null>() {
 
 // That said, I'm not sure it's worth all of the extra overhead. You're going to have a
 // specific useContext hook for every context.
+
+// In my experience, most journeys from JavaScript to TypeScript are going to be a bit unique.
+
+// Start with a gentle set of TypeScript rules and the allowJs flag. This means a lot of 
+// stuff will be any but that's okay for now.
